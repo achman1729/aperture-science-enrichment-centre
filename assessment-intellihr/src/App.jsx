@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom"
 import "./App.css"
 import Login from "./auth/Login"
 import DataShowPage from "./DataShowPage"
+import Questionaire from "./Questionaire"
 
 function App() {
   const [dataObj, setDataObj] = useState({})
@@ -67,6 +68,13 @@ function App() {
               path={`/subject`}
               render={(props) => (
                 <DataShowPage {...props} user={user} dataObj={dataObj} />
+              )}
+            />
+            <Route
+              exact
+              path={`/questions`}
+              render={(props) => (
+                <Questionaire {...props} user={user} dataObj={dataObj} />
               )}
             />
           </Switch>

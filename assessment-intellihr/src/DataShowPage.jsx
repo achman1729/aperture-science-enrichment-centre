@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table"
 import { useHistory } from "react-router-dom"
 
 export default function DataShowPage(props) {
-  console.log("props.user", props.user)
   const user = JSON.parse(localStorage.getItem("user"))
   const data = props.dataObj
   let subjectsArray = []
@@ -12,10 +11,12 @@ export default function DataShowPage(props) {
   let headerName
   user === "GLaDOS" ? (headerName = "GLaDOS") : (headerName = `subject ${user}`)
 
-  const handleClick = () => {
+  const handleLogout = () => {
     localStorage.clear()
     history.push("/")
   }
+
+  const takeTest = () => {}
 
   if (data.subjects) {
     if (user === "GLaDOS") {
@@ -53,12 +54,18 @@ export default function DataShowPage(props) {
         <div>
           <h3>Welcome {headerName}</h3>
           {user !== "GLaDOS" ? (
-            <ul>
+            <ul style={{ listStyleType: "none" }}>
               <li
-                style={{ width: "0px", cursor: "pointer" }}
-                onClick={handleClick}
+                style={{ width: "auto", cursor: "pointer", textAlign: "left" }}
+                onClick={handleLogout}
               >
                 Logout
+              </li>
+              <li
+                style={{ width: "auto", cursor: "pointer", textAlign: "left" }}
+                onClick={takeTest}
+              >
+                <a href="/questions">{"Take test"}</a>
               </li>
             </ul>
           ) : (
