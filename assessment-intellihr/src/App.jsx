@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import "./App.css"
 import Login from "./auth/Login"
-import DataShowPage from "./DataShowPage"
-import Questionaire from "./Questionaire"
+import DataShowPage from "./profile/DataShowPage"
+import Questionaire from "./questionaire/Questionaire"
 
 function App() {
   const [dataObj, setDataObj] = useState({})
