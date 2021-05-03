@@ -16,8 +16,7 @@ export default function DataShowPage(props) {
     history.push("/")
   }
 
-  const takeTest = () => {}
-
+  // table entries
   if (data.subjects) {
     if (user === "GLaDOS") {
       data.subjects.map((item) => {
@@ -63,7 +62,6 @@ export default function DataShowPage(props) {
               </li>
               <li
                 style={{ width: "auto", cursor: "pointer", textAlign: "left" }}
-                onClick={takeTest}
               >
                 <a href="/questions">{"Take test"}</a>
               </li>

@@ -1,16 +1,47 @@
-import React from "react"
+import React, { useState } from "react"
 import Table from "react-bootstrap/Table"
 import Button from "react-bootstrap/Button"
 import { useHistory } from "react-router-dom"
 
 export default function Questionaire(props) {
   const data = props.dataObj
+  const user = JSON.parse(localStorage.getItem("user"))
   let questionsArr = []
   let options = []
   const history = useHistory()
+  const [responseData, setResponseData] = useState([{}])
+  let subjectId
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault()
     history.push("/subject")
+  }
+
+  if (data.subjects) {
+    data.subjects.map((item) => {
+      if (item.Username === user) {
+        subjectId = item.SubjectId
+      }
+    })
+  }
+
+  const handleChange = (value, id) => {
+    if (data.testSubmissions) {
+      setResponseData([
+        ...responseData,
+        {
+          id: data.testSubmissions[data.testSubmissions.length - 1].Id + 1,
+          date: new Date(),
+          subjectId: subjectId,
+          response: [
+            {
+              id: id,
+              value: value,
+            },
+          ],
+        },
+      ])
+    }
   }
 
   if (data.testQuestions) {
@@ -26,7 +57,13 @@ export default function Questionaire(props) {
             <tr>
               <td>{item.Label}</td>
               <td>
-                <select>{options}</select>
+                <select
+                  id={item.Id}
+                  onChange={(e) => handleChange(e.target.value, item.Id)}
+                >
+                  <option value={options.value}>Select an option</option>
+                  {options}
+                </select>
               </td>
             </tr>
           )
@@ -36,7 +73,11 @@ export default function Questionaire(props) {
             <tr>
               <td>{item.Label}</td>
               <td>
-                <input type="text"></input>
+                <input
+                  id={item.Id}
+                  type="text"
+                  onChange={(e) => handleChange(e.target.value, item.Id)}
+                />
               </td>
             </tr>
           )
@@ -46,7 +87,12 @@ export default function Questionaire(props) {
             <tr>
               <td>{item.Label}</td>
               <td>
-                <input type="checkbox"></input>
+                <input
+                  id={item.Id}
+                  type="checkbox"
+                  required={item.Required}
+                  onChange={(e) => handleChange(e.target.checked, item.Id)}
+                ></input>
               </td>
             </tr>
           )
@@ -54,6 +100,7 @@ export default function Questionaire(props) {
       }
     })
   }
+
   return (
     <div>
       <h3>Please answer the following questions</h3>

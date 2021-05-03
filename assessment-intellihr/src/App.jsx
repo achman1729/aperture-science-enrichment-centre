@@ -18,7 +18,6 @@ function App() {
       },
     })
       .then(function (response) {
-        // console.log(response)
         return response.json()
       })
       .then(function (data) {
@@ -29,7 +28,6 @@ function App() {
   }
 
   const getVerifiedUser = (user) => {
-    console.log("user is: ", user)
     setUser(user)
     localStorage.setItem("user", JSON.stringify(user))
   }
@@ -37,8 +35,6 @@ function App() {
   useEffect(() => {
     getData()
   }, [])
-
-  console.log("state user", user)
 
   return (
     <div className="App">
