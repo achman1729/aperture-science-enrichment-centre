@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
 import "./App.css"
 import Login from "./auth/Login"
 import DataShowPage from "./DataShowPage"
@@ -31,7 +31,6 @@ function App() {
     console.log("user is: ", user)
     setUser(user)
     localStorage.setItem("user", JSON.stringify(user))
-    // <Redirect to={} />
   }
 
   useEffect(() => {
@@ -59,12 +58,16 @@ function App() {
             <Route
               exact
               path={`/GLaDOS`}
-              render={(props) => <DataShowPage {...props} user={user} />}
+              render={(props) => (
+                <DataShowPage {...props} user={user} dataObj={dataObj} />
+              )}
             />
             <Route
               exact
               path={`/subject`}
-              render={(props) => <DataShowPage {...props} user={user} />}
+              render={(props) => (
+                <DataShowPage {...props} user={user} dataObj={dataObj} />
+              )}
             />
           </Switch>
         </BrowserRouter>
